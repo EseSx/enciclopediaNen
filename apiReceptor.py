@@ -1,20 +1,36 @@
-from flask import Flask, Request, jsonify
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from BDkeys import evaluador
 
 app = Flask(__name__)
+
+CORS(app)
 
 datos = []
 
 
 @app.route("/api/guardar_contraseña", methods=["POST"])
-def guardarContraseña():
-    datos = Request.get_json()
+async def guardarContraseña():
+    datos = request.get_json()
 
     if not datos or "contraseña" not in datos:
         return jsonify({"mensaje": "El campo 'contraseña' es obligatorio"}), 400
 
     contraseña = datos["contraseña"]
 
-    return jsonify({"mensaje": "Contraseña guardada con exito", "contraseñas": contraseña}), 201
+    resultado = await evaluador(contraseña)
+    print("Evaluacion completada:", resultado)
+
+    return (
+        jsonify(
+            {
+                "mensaje": "Contraseña guardada con exito",
+                "contraseñas": contraseña,
+                "resultado": resultado,
+            }
+        ),
+        201,
+    )
 
 
 if __name__ == "__main__":

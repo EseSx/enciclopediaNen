@@ -1,5 +1,0 @@
-# emisor
-
-# receptor
-
-# comprobador
