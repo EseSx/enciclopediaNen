@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
 
                 try{
-                    const respuesta = await fetch("http://127.0.0.1:5000/api/guardar-nombre", {
+                    const respuesta = await fetch("http://127.0.0.1:5000/api/guardar_contraseña", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     if(respuesta.ok){
                         const resultado = await respuesta.json()
                         console.log("Respuesta de la API:", resultado)
+                        confirmador(resultado)
                     } else {
                         console.error("Error en la solicitud:", await respuesta.text())
                     }
@@ -66,6 +67,12 @@ document.addEventListener("DOMContentLoaded", function(){
             }
 
             enviarContraseña()
+        }
+        function confirmador(valido){
+            if(valido.resultado == true){
+                div.style.display = "none"
+                contenedorDesplegable.style.display = "none"
+            }
         }
     })
 })
