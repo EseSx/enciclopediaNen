@@ -1,4 +1,9 @@
-.desplegable{
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.botonesDesplegables{
     display: none;
     margin-top: 10px;
 }
@@ -16,7 +21,7 @@
     left: 0;
 }
 
-.desplegableContraseña{
+.divDesplegable{
     background-color: white;
     color: black;
 
@@ -31,4 +36,30 @@
     align-items: center;
     margin-top: 25px;
     margin-left: 150px;
+}
+
+.listaFormulario{
+    list-style-type: none;
+}
+
+#contenedorFormIng{
+    display: none;
+}
+
+.titulo{
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    background-color: #1e1e2c;
+    color: #e0e0e0;
+    text-align: center;
+}
+
+.titulo1{
+    padding-right: 100px;
+}
+
+.titulo2{
+    border-bottom: 3px solid #ff6f61;
+    text-indent: 100px;
 }
