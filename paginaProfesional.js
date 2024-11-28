@@ -1,17 +1,3 @@
-// Desplegar botones del CRU (la "D" esta en la otra pagina)
-const botonPrincipal = document.getElementById('botonPrincipal')
-const botonesDesplegables = document.getElementById('botonesDesplegables')
-
-botonPrincipal.addEventListener("click", function () {
-    if (botonesDesplegables.style.display === "none" || botonesDesplegables.style.display === "") {
-        botonesDesplegables.style.display = "block"
-        botonPrincipal.textContent = "Ocultar botones"
-    } else {
-        botonesDesplegables.style.display = "none"
-        botonPrincipal.textContent = "Mostrar botones"
-    }
-})
-
 // Pantalla parra introducir la contraseña
 // document.addEventListener("DOMContentLoaded", function () {
 //     const div = document.createElement('div')
@@ -84,6 +70,7 @@ const botonIngresar = document.getElementById("botonIngresar")
 const botonModificar = document.getElementById("botonModificar")
 const botonEliminar = document.getElementById("botonEliminar")
 const contenedorFormIng = document.getElementById("contenedorFormIng")
+const contenedorFormMod = document.getElementById("contenedorFormMod")
 
 // Utilidad del boton "Ingresar"
 botonIngresar.addEventListener("click", function () {
@@ -102,5 +89,25 @@ botonIngresar.addEventListener("click", function () {
 // Formulario ingresar
 const formularioIngresar = document.getElementById("formularioIngresar")
 formularioIngresar.addEventListener("submit" , function(event){
+    event.preventDefault()
+})
+
+// Utilidad del boton "Modificar"
+botonModificar.addEventListener("click", function () {
+    const div = document.createElement('div')
+    div.classList.add('divDesplegable')
+
+    const contenedorDesplegable = document.createElement('div')
+    contenedorDesplegable.classList.add('contenedorDesplegable')
+
+    document.body.appendChild(contenedorDesplegable)
+    contenedorDesplegable.appendChild(div)
+    div.appendChild(contenedorFormMod)
+    contenedorFormMod.style.display = "block"
+})
+
+// Formulario ingresar
+const formularioModificar = document.getElementById("formularioModificar")
+formularioModificar.addEventListener("submit" , function(event){
     event.preventDefault()
 })
