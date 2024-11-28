@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="paginaProfesional.css">
-    <title>Document</title>
+    <title>EnciclopediaNen</title>
 </head>
 <body>
     <h1 class="titulo titulo1">Admin de datos</h1>
     <h1 class="titulo titulo2">Enciclopedia Nen</h1>
 
-    <h3>que quiere hacer?</h3>
+    <h3 class="texto1">Bienvenido a la sub-pagina admin de de la pagina EnciclopediaNen, en esta pagina usted puede ingresar, modificar o eliminar, personajes, equipos/organizaciones/grupos, habilidades nen.</h3>
 
     <div class="contenedor">
-        <button id="botonPrincipal">Mostrar botones</button>
 
-        <div id="botonesDesplegables" class="botonesDesplegables">
-            <button id="botonIngresar">Ingresar</button>
-            <button id="botonModificar">Modificar</button>
-            <button id="botonEliminar">Eliminar</button>
-        </div>
+    <div class="contenedorBotonesCRUD">
+        <button id="botonIngresar" class="botonCRUD">Ingresar</button>
+        <button id="botonModificar" class="botonCRUD">Modificar</button>
+        <button id="botonEliminar" class="botonCRUD">Eliminar</button>
+    </div>
 
         <div id="contenedorFormIng">
             <form id="formularioIngresar">
@@ -35,6 +34,10 @@
                     <li>
                         <label for="imagenUrl">Url de la imagen del personaje:</label>
                         <input type="url" id="descripcion">
+                    </li>
+                    <li>
+                        <label for="imagenUrl">Url de la imagen del personaje:</label>
+                        <input type="text" id="descripcion">
                     </li>
                     <li>
                         <button type="submit">Enviar Formulario</button>
