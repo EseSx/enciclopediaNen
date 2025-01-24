@@ -69,45 +69,113 @@
 const botonIngresar = document.getElementById("botonIngresar")
 const botonModificar = document.getElementById("botonModificar")
 const botonEliminar = document.getElementById("botonEliminar")
-const contenedorFormIng = document.getElementById("contenedorFormIng")
-const contenedorFormMod = document.getElementById("contenedorFormMod")
+
+// Formulario de personajes
+const contenedorForm = document.getElementById("contenedorForm")
+const pedidoDatos = document.getElementById("pedidoDatos")
+const inputPedidoDatos = document.getElementById("inputPedidoDatos")
+const botonCerrar = document.getElementById("botonCerrar")
+const botonSiguiente = document.getElementById("botonSiguiente")
+
+// Listas de datos a ingresar
+const titulosDatosIngresar = [
+    "Ingrese el nombre completo del personaje",
+    "Ingrese la descripcion del personaje",
+    "Ingrese la URL de una imagen para representar al personaje",
+    "Ingrese las afiliaciones del personaje (Tome en cuenta que debera separarlas por puntos)",
+    "Ingrese las habilidades nen del personaje (Tome en cuenta que debera separarlas por puntos)",
+    "Ingrese el color representativo del personaje"
+]
+
+let nombreJson, descripcionJson, urlJson, afiliacionJson, habilidadesJson, colorJson
+let indicePedidos = 0
+let contenedorDesplegable
+
+function manejarclick() {
+    switch (indicePedidos) {
+        case 0:
+            nombreJson = inputPedidoDatos.value
+            inputPedidoDatos.value = ""
+            break
+        case 1:
+            descripcionJson = inputPedidoDatos.value
+            inputPedidoDatos.value = ""
+            break
+        case 2:
+            urlJson = inputPedidoDatos.value
+            inputPedidoDatos.value = ""
+            break
+        case 3:
+            afiliacionJson = inputPedidoDatos.value
+            inputPedidoDatos.value = ""
+            break
+        case 4:
+            habilidadesJson = inputPedidoDatos.value
+            inputPedidoDatos.value = ""
+            break
+        case 5:
+            colorJson = inputPedidoDatos.value
+            break
+    }
+
+    if (botonSiguiente.innerHTML === "ENVIAR") {
+        indicePedidos = 0
+        document.body.removeChild(contenedorDesplegable)
+        const data = {
+            nombre: nombreJson,
+            descripcion: descripcionJson,
+            url: urlJson,
+            afiliacion: afiliacionJson,
+            habilidades: habilidadesJson,
+            color: colorJson
+        }
+        console.log(data)
+    }
+
+    if (indicePedidos < titulosDatosIngresar.length - 1) {
+        indicePedidos++
+        pedidoDatos.innerHTML = titulosDatosIngresar[indicePedidos]
+        switch (indicePedidos) {
+            case 0:
+            case 1:
+            case 3:
+            case 4:
+                inputPedidoDatos.type = "text"
+                break
+            case 2:
+                inputPedidoDatos.type = "url"
+                break
+            case 5:
+                inputPedidoDatos.type = "color"
+                break
+        }
+    }
+
+    if (indicePedidos === titulosDatosIngresar.length - 1) {
+        botonSiguiente.innerHTML = "ENVIAR"
+    }
+}
 
 // Utilidad del boton "Ingresar"
 botonIngresar.addEventListener("click", function () {
-    const div = document.createElement('div')
-    div.classList.add('divDesplegable')
+    indicePedidos = 0
+    nombreJson = descripcionJson = urlJson = afiliacionJson = habilidadesJson = colorJson = inputPedidoDatos.value = ""
 
-    const contenedorDesplegable = document.createElement('div')
-    contenedorDesplegable.classList.add('contenedorDesplegable')
-
-    document.body.appendChild(contenedorDesplegable)
-    contenedorDesplegable.appendChild(div)
-    div.appendChild(contenedorFormIng)
-    contenedorFormIng.style.display = "block"
-})
-
-// Formulario ingresar
-const formularioIngresar = document.getElementById("formularioIngresar")
-formularioIngresar.addEventListener("submit" , function(event){
-    event.preventDefault()
-})
-
-// Utilidad del boton "Modificar"
-botonModificar.addEventListener("click", function () {
-    const div = document.createElement('div')
-    div.classList.add('divDesplegable')
-
-    const contenedorDesplegable = document.createElement('div')
-    contenedorDesplegable.classList.add('contenedorDesplegable')
+    contenedorDesplegable = document.createElement("div")
+    contenedorDesplegable.classList.add("contenedorDesplegable")
+    const div = document.createElement("div")
+    div.classList.add("divDesplegable")
 
     document.body.appendChild(contenedorDesplegable)
     contenedorDesplegable.appendChild(div)
-    div.appendChild(contenedorFormMod)
-    contenedorFormMod.style.display = "block"
-})
+    div.appendChild(contenedorForm)
+    contenedorForm.style.display = "block"
 
-// Formulario ingresar
-const formularioModificar = document.getElementById("formularioModificar")
-formularioModificar.addEventListener("submit" , function(event){
-    event.preventDefault()
+    pedidoDatos.innerHTML = titulosDatosIngresar[indicePedidos]
+    botonSiguiente.innerHTML = "SIGUIENTE"
+    inputPedidoDatos.value = ""
+    inputPedidoDatos.type = "text"
+
+    botonSiguiente.removeEventListener("click", manejarclick)
+    botonSiguiente.addEventListener("click", manejarclick)
 })

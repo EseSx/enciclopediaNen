@@ -35,6 +35,7 @@ async def guardarContraseña():
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
 
+
 @app.route("/api/formularioIngresar", methods=["POST"])
 async def guardarDatosPersonajes():
     datos = request.get_json()
