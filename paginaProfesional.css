@@ -1,9 +1,9 @@
-body{
+body {
     margin: 0;
     padding: 0;
 }
 
-.contenedor{
+.contenedor {
     margin: 20px;
 }
 
@@ -16,7 +16,7 @@ body{
     left: 0;
 }
 
-.divDesplegable{
+.divDesplegable {
     background-color: white;
     color: black;
 
@@ -31,21 +31,14 @@ body{
     align-items: center;
     margin-top: 25px;
     margin-left: 150px;
+    border-radius: 30px;
 }
 
-.listaFormulario{
-    list-style-type: none;
-}
-
-#contenedorFormIng{
+#contenedorForm {
     display: none;
 }
 
-#contenedorFormMod{
-    display: none;
-}
-
-.titulo{
+.titulo {
     margin: 0;
     padding: 0;
     font-size: 50px;
@@ -55,45 +48,45 @@ body{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.titulo1{
+.titulo1 {
     padding-right: 100px;
 }
 
-.titulo2{
+.titulo2 {
     border-bottom: 3px solid #ff6f61;
     text-indent: 100px;
 }
 
-.texto1{
+.texto1 {
     text-align: center;
     color: #1e1e2c;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.contenedorBotonesCRUD{
+.contenedorBotonesCRUD {
     display: flex;
     justify-content: space-between;
 }
 
-.botonCRUD{
+.botonCRUD {
     font-size: 30px;
     background-color: transparent;
     border-color: transparent;
 }
 
-#botonIngresar{
+#botonIngresar {
     border-color: greenyellow;
     border-style: double;
     border-radius: 10px;
 }
 
-#botonModificar{
+#botonModificar {
     border-color: lightblue;
     border-style: double;
     border-radius: 10px;
 }
 
-#botonEliminar{
+#botonEliminar {
     border-color: red;
     border-style: double;
     border-radius: 10px;
