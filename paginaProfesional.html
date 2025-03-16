@@ -13,14 +13,23 @@
     <h1 class="titulo titulo2">Enciclopedia Nen</h1>
 
     <h3 class="texto1">Bienvenido a la sub-pagina admin de de la pagina EnciclopediaNen, en esta página usted puede
-        ingresar, modificar o eliminar, personas, equipos/organizaciones/grupos y habilidades nen.</h3>
+        ingresar, modificar o eliminar, personas, organizaciones/afiliaciones y habilidades nen.</h3>
 
     <div class="contenedor">
+        <!-- Este contenerdor va a guardar todos los formularios que se van a desplegar y a los botones para desplegar los formularios correspondientes -->
 
         <div class="contenedorBotonesCRUD">
-            <button id="botonIngresar" class="botonCRUD">Ingresar</button>
-            <button id="botonModificar" class="botonCRUD">Modificar</button>
-            <button id="botonEliminar" class="botonCRUD">Eliminar</button>
+            <button id="botonIngresar" class="botonCRUD">INGRESAR</button>
+            <button id="botonModificar" class="botonCRUD">MODIFICAR</button>
+            <button id="botonEliminar" class="botonCRUD">ELIMINAR</button>
+        </div>
+
+        <!-- "PHOA" Es la eleccion Personaje, Habilidad, Organizacion/Afiliacion que existe en cada formulario -->
+        <div id="contenedorPHOA">
+            <h2 id="PHOA"></h2>
+            <button id="Personaje"></button>
+            <button id="Habilidad"></button>
+            <button id="OrganizacionAfiliacion"></button>
         </div>
 
         <div id="contenedorForm">
@@ -29,10 +38,11 @@
             <button id="botonCerrar">CERRAR</button>
             <button id="botonSiguiente">SIGUIENTE</button>
         </div>
+        <!-- |IMPORTANTE| Faltan 3 formularios más -->
     </div>
 
-    <div>
-        <a>VOLVER A LA PAGINA PRINCIPAL</a>
+    <div class="pieDePagina">
+        <a class="linkRegreso">VOLVER A LA PAGINA PRINCIPAL</a>
     </div>
 
     <script src="paginaProfesional.js"></script>
