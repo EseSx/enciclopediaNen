@@ -1,43 +1,49 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+# Creo la API
+from fastapi import FastAPI
+
+app = FastAPI()
+
+# Configuro el CORS
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Creo los modelos de entrada con Pydantic
+from pydantic import BaseModel
+
+
+class ContraseñaData(BaseModel):
+    contraseña: str
+
+
+class DatosFormulario(BaseModel):
+    # Cambiar por los datos pertinentes a futuro
+    nombre: str
+    edad: int
+    habilidad: str
+
+
+# Rutas
 from BDkeys import evaluador
 
-app = Flask(__name__)
 
-CORS(app)
-
-datos = []
-
-
-@app.route("/api/guardar_contraseña", methods=["POST"])
-async def guardarContraseña():
-    datos = request.get_json()
-
-    if not datos or "contraseña" not in datos:
-        return jsonify({"mensaje": "El campo 'contraseña' es obligatorio"}), 400
-
-    contraseña = datos["contraseña"]
-
-    resultado = await evaluador(contraseña)
-
-    return (
-        jsonify(
-            {
-                "mensaje": "Contraseña guardada con exito",
-                "contraseñas": contraseña,
-                "resultado": resultado,
-            }
-        ),
-        201,
-    )
+@app.post("/api/guardar_contraseña")
+async def guardar_contraseña(data: ContraseñaData):
+    resultado = await evaluador(data.contraseña)
+    return {
+        "mensaje": "Contraseña guardada con éxito",
+        "contraseñas": data.contraseña,
+        "resultado": resultado,
+    }
 
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
-
-
-@app.route("/api/formularioIngresar", methods=["POST"])
-async def guardarDatosPersonajes():
-    datos = request.get_json()
-
-    print(datos)
+@app.post("/api/formularioIngresar")
+async def guardar_datos_personajes(data: DatosFormulario):
+    print(data)
+    return {"mensaje": "Datos recibidos correctamente", "datos": data}
