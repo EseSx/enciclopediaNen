@@ -1,78 +1,82 @@
 // Pantalla parra introducir la contraseña
-// document.addEventListener("DOMContentLoaded", () => {
-//   const div = document.createElement("div");
-//   div.classList.add("divDesplegable");
+document.addEventListener("DOMContentLoaded", () => {
 
-//   const h1 = document.createElement("h1");
-//   h1.textContent = "Ingrese una contraseña";
+  // Codigo Viejo
+  const div = document.createElement("div");
+  div.classList.add("divDesplegable");
 
-//   const inputContraseña = document.createElement("input");
-//   inputContraseña.type = "password";
+  const h1 = document.createElement("h1");
+  h1.textContent = "Ingrese una contraseña";
 
-//   const botonContraseña = document.createElement("button");
-//   botonContraseña.textContent = "siguiente";
+  const inputContraseña = document.createElement("input");
+  inputContraseña.type = "password";
 
-//   const contenedorDesplegable = document.createElement("div");
-//   contenedorDesplegable.classList.add("contenedorDesplegable");
+  const botonContraseña = document.createElement("button");
+  botonContraseña.textContent = "siguiente";
 
-//   document.body.appendChild(contenedorDesplegable);
+  const contenedorDesplegable = document.createElement("div");
+  contenedorDesplegable.classList.add("contenedorDesplegable");
 
-//   contenedorDesplegable.appendChild(div);
-//   div.appendChild(h1);
-//   div.appendChild(inputContraseña);
-//   div.appendChild(botonContraseña);
+  document.body.appendChild(contenedorDesplegable);
 
-//   botonContraseña.addEventListener("click", () => {
-//     const contraseñaJS = inputContraseña.value.trim();
+  contenedorDesplegable.appendChild(div);
+  div.appendChild(h1);
+  div.appendChild(inputContraseña);
+  div.appendChild(botonContraseña);
 
-//     if (contraseñaJS === "") {
-//       alert("Es obligatorio ingresar una contraseña");
-//       return;
-//     }
+  botonContraseña.addEventListener("click", () => {
+    const contraseñaJS = inputContraseña.value.trim();
 
-//     enviarContraseña(contraseñaJS);
-//   });
+    if (contraseñaJS === "") {
+      alert("Es obligatorio ingresar una contraseña");
+      return;
+    }
 
-//   async function enviarContraseña(contraseña) {
-//     const data = {
-//       contraseña: contraseña,
-//     };
+    enviarContraseña(contraseñaJS);
+  });
 
-//     try {
-//       const respuesta = await fetch(
-//         "http://127.0.0.1:8000/api/guardar_contraseña",
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify(data),
-//         }
-//       );
+  async function enviarContraseña(contraseña) {
+    const data = {
+      contraseña: contraseña,
+    };
 
-//       if (respuesta.ok) {
-//         const resultado = await respuesta.json();
-//         console.log("Respuesta de la API:", resultado);
-//         confirmar(resultado);
-//       } else {
-//         const errorTexto = await respuesta.text();
-//         console.error("Error en la solicitud:", errorTexto);
-//         alert("Error: " + errorTexto);
-//       }
-//     } catch (error) {
-//       console.error("Error al conectar con la API:", error);
-//       alert("No se pudo conectar con la API");
-//     }
-//   }
+    try {
+      const respuesta = await fetch(
+        "http://127.0.0.1:8000/api/guardar_contraseña",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
-//   function confirmar(resultado) {
-//     if (resultado.resultado === true) {
-//       document.body.removeChild(contenedorDesplegable);
-//     } else {
-//       alert("Contraseña incorrecta");
-//     }
-//   }
-// });
+      if (respuesta.ok) {
+        const resultado = await respuesta.json();
+        console.log("Respuesta de la API:", resultado);
+        confirmar(resultado);
+      } else {
+        const errorTexto = await respuesta.text();
+        console.error("Error en la solicitud:", errorTexto);
+        alert("Error: " + errorTexto);
+      }
+    } catch (error) {
+      console.error("Error al conectar con la API:", error);
+      alert("No se pudo conectar con la API");
+    }
+  }
+
+  function confirmar(resultado) {
+    if (resultado.resultado === true) {
+      document.body.removeChild(contenedorDesplegable);
+    } else {
+      alert("Contraseña incorrecta");
+    }
+  }
+});
+
+// !IMPORTANTE¡ Revisar esta zona para adaptarla a fastAPI
 
 // Botones del CRU
 const botonIngresar = document.getElementById("botonIngresar");
@@ -103,8 +107,8 @@ const titulosDatosIngresar = [
   "Ingrese el nombre completo del personaje",
   "Ingrese la descripcion del personaje",
   "Ingrese la URL de una imagen para representar al personaje",
-  "Ingrese las afiliaciones del personaje (Tome en cuenta que el espaciado debe darse en foramto de espacio comun, puntos o guiones bajos)",
-  "Ingrese las habilidades nen del personaje (Tome en cuenta las mismas especificaciones en el espaciado)",
+  "Ingrese las afiliaciones del personaje",
+  "Ingrese las habilidades nen del personaje",
   "Ingrese el color representativo del personaje",
 ];
 
@@ -151,34 +155,69 @@ function manejarclick() {
   }
 
   // La logica para el envio de datos a la api
-  // |IMPORTANTE| Falta conectar a la api
   if (botonSiguiente.innerHTML === "ENVIAR") {
+    // Validación de campos vacíos
+    if (
+      !nombreJson ||
+      !descripcionJson ||
+      !urlJson ||
+      !afiliacionJson ||
+      !habilidadesJson ||
+      !colorJson
+    ) {
+      alert("Por favor complete todos los campos antes de enviar.");
+      return;
+    }
+
     indicePedidos = 0;
-    document.body.removeChild(contenedorDesplegable);
+
+    if (document.body.contains(contenedorDesplegable)) {
+      document.body.removeChild(contenedorDesplegable);
+    }
+
     const data = {
-      nombre: nombreJson,
-      descripcion: descripcionJson,
-      url: urlJson,
-      afiliacion: afiliacionJson,
-      habilidades: habilidadesJson,
-      color: colorJson,
+      nombre: String(nombreJson),
+      descripcion: String(descripcionJson),
+      url: String(urlJson),
+      afiliacion: String(afiliacionJson),
+      habilidades: String(habilidadesJson),
+      color: String(colorJson),
     };
-    console.log(data);
+
+    fetch("http://localhost:8000/api/formularioIngresar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((respuesta) => {
+        if (!respuesta.ok)
+          throw new Error("Error en la respuesta del servidor.");
+        return respuesta.json();
+      })
+      .then((resultado) => {
+        console.log("Respuesta del servidor:", resultado);
+      })
+      .catch((error) => {
+        console.error("Error al enviar los datos:", error);
+        alert("Hubo un error al enviar los datos.");
+      });
   }
 
   // Asigna el tipo de dato que se va a ingresar en cada caso y aumenta el indice
   if (indicePedidos < titulosDatosIngresar.length - 1) {
     indicePedidos++;
+
     pedidoDatos.innerHTML = titulosDatosIngresar[indicePedidos];
+
     switch (indicePedidos) {
       case 0:
       case 1:
+      case 2:
       case 3:
       case 4:
         inputPedidoDatos.type = "text";
-        break;
-      case 2:
-        inputPedidoDatos.type = "url";
         break;
       case 5:
         inputPedidoDatos.type = "color";
@@ -205,6 +244,7 @@ botonIngresar.addEventListener("click", function () {
   // Organizacion de datos para mostrar los formularios en pantalla
   contenedorDesplegable = document.createElement("div");
   contenedorDesplegable.classList.add("contenedorDesplegable");
+
   const div = document.createElement("div");
   div.classList.add("divDesplegable");
 
@@ -220,7 +260,7 @@ botonIngresar.addEventListener("click", function () {
   OrganizacionAfiliacion.innerHTML = "Conjurar organizacion/afiliacion";
 
   // Si se selecciona "Personaje"
-  Personaje.addEventListener("click", function () {
+  Personaje.addEventListener("click", () => {
     // Borro el contenedor previo
     document.body.removeChild(contenedorDesplegable);
 
@@ -297,12 +337,10 @@ botonIngresar.addEventListener("click", function () {
         switch (indicePedidos) {
           case 0:
           case 1:
+          case 2:
           case 3:
           case 4:
             inputPedidoDatos.type = "text";
-            break;
-          case 2:
-            inputPedidoDatos.type = "url";
             break;
           case 5:
             inputPedidoDatos.type = "color";

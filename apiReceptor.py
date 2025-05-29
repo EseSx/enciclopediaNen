@@ -1,40 +1,58 @@
-# Creo la API
+# --- Creacion de la aplicacion FastAPI ---
 from fastapi import FastAPI
 
 app = FastAPI()
 
-# Configuro el CORS
+# --- Configuracion del CORS ---
 from fastapi.middleware.cors import CORSMiddleware
 
+# Permite solicitudes desde cualquier origen (útil para desarrollo)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],  # Permitir todos los orígenes
+    allow_credentials=True,  # Permitir el uso de cookies/autenticación
+    allow_methods=["*"],  # Permitir todos los métodos HTTP
+    allow_headers=["*"],  # Permitir todos los encabezados
 )
 
-# Creo los modelos de entrada con Pydantic
+# --- Creacion los modelos de entrada con Pydantic ---
 from pydantic import BaseModel
 
 
 class ContraseñaData(BaseModel):
+    """Modelo para recibir una contraseña desde el frontend."""
+
     contraseña: str
 
 
 class DatosFormulario(BaseModel):
-    # Cambiar por los datos pertinentes a futuro
+    """Modelo de datos del formulario para registrar personajes."""
+
     nombre: str
-    edad: int
-    habilidad: str
+    descripcion: str
+    url: str
+    afiliacion: str
+    habilidades: str
+    color: str
 
 
-# Rutas
+# --- Importación de funciones de la base de datos ---
 from BDkeys import evaluador
+from BDpersonajes import ingresador
 
 
+# --- Rutas de la API ---
 @app.post("/api/guardar_contraseña")
 async def guardar_contraseña(data: ContraseñaData):
+    """
+    Verifica si la contraseña enviada ya está registrada en la base de datos.
+
+    Args:
+        data (ContraseñaData): Objeto con la contraseña a evaluar.
+
+    Returns:
+        dict: Mensaje de confirmación y resultado de la evaluación.
+    """
     resultado = await evaluador(data.contraseña)
     return {
         "mensaje": "Contraseña guardada con éxito",
@@ -45,5 +63,14 @@ async def guardar_contraseña(data: ContraseñaData):
 
 @app.post("/api/formularioIngresar")
 async def guardar_datos_personajes(data: DatosFormulario):
-    print(data)
+    """
+    Recibe y guarda los datos de un personaje enviados desde un formulario.
+
+    Args:
+        data (DatosFormulario): Objeto con los datos del personaje.
+
+    Returns:
+        dict: Mensaje de confirmación junto con los datos recibidos.
+    """
+    ingresador(data)
     return {"mensaje": "Datos recibidos correctamente", "datos": data}
