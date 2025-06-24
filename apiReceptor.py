@@ -38,7 +38,8 @@ class DatosFormulario(BaseModel):
 
 # --- Importación de funciones de la base de datos ---
 from BDkeys import evaluador
-from BDpersonajes import ingresador
+
+# from BDpersonajes import ingresador
 
 
 # --- Rutas de la API ---
@@ -61,16 +62,16 @@ async def guardar_contraseña(data: ContraseñaData):
     }
 
 
-@app.post("/api/formularioIngresar")
-async def guardar_datos_personajes(data: DatosFormulario):
-    """
-    Recibe y guarda los datos de un personaje enviados desde un formulario.
+# @app.post("/api/formularioIngresar")
+# async def guardar_datos_personajes(data: DatosFormulario):
+#     """
+#     Recibe y guarda los datos de un personaje enviados desde un formulario.
 
-    Args:
-        data (DatosFormulario): Objeto con los datos del personaje.
+#     Args:
+#         data (DatosFormulario): Objeto con los datos del personaje.
 
-    Returns:
-        dict: Mensaje de confirmación junto con los datos recibidos.
-    """
-    ingresador(data)
-    return {"mensaje": "Datos recibidos correctamente", "datos": data}
+#     Returns:
+#         dict: Mensaje de confirmación junto con los datos recibidos.
+#     """
+#     ingresador(data)
+#     return {"mensaje": "Datos recibidos correctamente", "datos": data}

@@ -1,53 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="paginaProfesional.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="paginaProfesional.css" />
     <title>EnciclopediaNen</title>
-</head>
+  </head>
 
-<body>
-    <h1 class="titulo titulo1">Admin de datos</h1>
-    <h1 class="titulo titulo2">Enciclopedia Nen</h1>
+  <body>
+    <main>
+      <!-- Titulo de la pagina -->
+      <header class="titulo">
+        <h1 class="titulo1">Admin de datos</h1>
+        <h1 class="titulo2">Enciclopedia Nen</h1>
+      </header>
 
-    <h3 class="texto1">Bienvenido a la subpágina de administración de Enciclopedia Nen. En esta página usted puede
-  ingresar, modificar o eliminar personajes, organizaciones/afiliaciones y habilidades Nen.</h3>
+      <!-- Cuerpo de la pagina -->
+      <article class="cuerpoPagina">
+        <!-- Introduccion a la pagina -->
+        <section class="introduccion">
+          <p class="textoIntroduccion">
+            Bienvenido a la subpágina de administración de Enciclopedia Nen. En
+            esta sección, usted podrá gestionar de forma completa la base de
+            datos del proyecto. Aquí tiene la posibilidad de
+            <strong class="textoNegrita"
+              >ingresar nuevos personajes, organizaciones/afiliaciones y
+              habilidades Nen</strong
+            >, así como
+            <strong class="textoNegrita"
+              >modificar registros existentes o eliminarlos</strong
+            >
+            según sea necesario. <br />
+            Esta herramienta está diseñada para facilitar la administración de
+            contenidos dentro del universo de Hunter x Hunter, permitiendo
+            mantener la enciclopedia actualizada, precisa y organizada. <br />
+            Cada entrada que agregue se integrará automáticamente al sistema,
+            haciéndola accesible desde la vista pública del proyecto. <br />
+            Si es su primera vez utilizando esta interfaz, le recomendamos
+            revisar los campos requeridos en cada formulario para garantizar que
+            la información se guarde correctamente.
+          </p>
+        </section>
 
-    <div class="contenedor">
-        <!-- Este contenerdor va a guardar todos los formularios que se van a desplegar y a los botones para desplegar los formularios correspondientes -->
+        <!-- Apartado de navegacion -->
+        <nav class="navegador">
+          <ul>
+            <li><a href="#ayudaNormalizacion">Ayuda en normalizacion</a></li>
+            <li>
+              <a href="#contenedorBotonesCRUD">Botones CRUD</a>
+              <ul>
+                <li><a href="#botonIngresar">Ingresar</a></li>
+                <li><a href="#botonModificar">Modificar</a></li>
+                <li><a href="#botonEliminar">Eliminar</a></li>
+              </ul>
+            </li>
+            <li><a href="#queryBd">Busqueda pura de la base de datos</a></li>
+          </ul>
+        </nav>
 
-        <div class="contenedorBotonesCRUD">
-            <button id="botonIngresar" class="botonCRUD">INGRESAR</button>
-            <button id="botonModificar" class="botonCRUD">MODIFICAR</button>
-            <button id="botonEliminar" class="botonCRUD">ELIMINAR</button>
+        <!-- Texto de ayuda para normalizar -->
+        <div id="ayudaNormalizacion"></div>
+
+        <!-- Botones visibles en la pagina -->
+        <div class="contenedorBotonesCRUD" id="contenedorBotonesCRUD">
+          <button id="botonIngresar" class="botonCRUD">INGRESAR</button>
+          <button id="botonModificar" class="botonCRUD">MODIFICAR</button>
+          <button id="botonEliminar" class="botonCRUD">ELIMINAR</button>
         </div>
 
-        <!-- "PHOA" Es la eleccion Personaje, Habilidad, Organizacion/Afiliacion que existe en cada formulario -->
-        <div id="contenedorPHOA">
-            <h2 id="PHOA"></h2>
-            <button id="Personaje"></button>
-            <button id="Habilidad"></button>
-            <button id="OrganizacionAfiliacion"></button>
-        </div>
+        <!-- Contenedor de busqueda de la base de datos -->
+        <div class="queryBd" id="queryBd"></div>
 
-        <div id="contenedorForm">
-            <h2 id="pedidoDatos"></h2>
-            <input type="text" id="inputPedidoDatos">
-            <div class="botones">
-                <button id="botonCerrar">CERRAR</button>
-                <button id="botonSiguiente">SIGUIENTE</button>
+        <!-- Pie de pagina -->
+        <footer class="pieDePagina">
+          <a class="linkRegreso">VOLVER A LA PAGINA PRINCIPAL</a>
+        </footer>
+
+        <!-- Contenerdor de todos los desplegables  -->
+        <section id="contenedorClave" class="contenedorDesplegable">
+          <div id="contenedorOpciones" class="contenedoresPrincipales">
+            <h2 id="opciones">Seleccione una categoría para ingresar</h2>
+            <div class="cuerpoOpciones">
+              <button id="btnPersonaje">Ingrese Personajes</button>
+              <button id="btnHabilidad">Ingrese Habilidades Nen</button>
+              <button id="btnOrganizacion">Ingrese Organizaciones</button>
             </div>
-        </div>
-        <!-- |IMPORTANTE| Faltan 3 formularios más -->
-    </div>
+          </div>
 
-    <div class="pieDePagina">
-        <a class="linkRegreso">VOLVER A LA PAGINA PRINCIPAL</a>
-    </div>
+          <!-- Contenedor del formulario de ingreso -->
+          <div id="contenedorFormIngPj" class="contenedoresPrincipales">
+            <h2>Formulario de Ingreso de Personajes</h2>
+            <form id="formPersonaje" method="post">
+              <fieldset>
+                <legend>Datos del Personaje</legend>
 
-    <script src="paginaProfesional.js"></script>
-</body>
+                <label
+                  >Nombre (ES): <input type="text" name="nombre_pj" required
+                /></label>
 
+                <label
+                  >Nombre (JP): <input type="text" name="nombre_jp_pj"
+                /></label>
+
+                <label
+                  >Género:
+                  <select name="genero" id="genero">
+                    <option value="" selected disabled>
+                      Seleccione un genero
+                    </option>
+                    <option value="hombre">Hombre</option>
+                    <option value="mujer">Mujer</option>
+                    <option value="desconocido">Desconocido</option>
+                  </select></label
+                >
+
+                <label>Edad: <input type="text" name="edad" /></label>
+
+                <label>Altura: <input type="text" name="altura" /></label>
+
+                <label>Peso: <input type="text" name="peso" /></label>
+
+                <label
+                  >Fecha de nacimiento:
+                  <input type="date" name="fecha_de_nacimiento"
+                /></label>
+
+                <label
+                  >Color de ojos: <input type="text" name="color_de_ojos"
+                /></label>
+
+                <label
+                  >Color de pelo: <input type="text" name="color_de_pelo"
+                /></label>
+
+                <label
+                  >Tipo de sangre: <input type="text" name="tipo_de_sangre"
+                /></label>
+
+                <label
+                  >Estado (vivo/muerto):
+                  <select name="estado_pj" id="estado_pj">
+                    <option value="" selected disabled>
+                      Seleccione un estado
+                    </option>
+                    <option value="vivo">Vivo</option>
+                    <option value="muerto">Muerto</option>
+                    <option value="desconocido">Desconocido</option>
+                  </select></label
+                >
+
+                <label
+                  >URL de Imagen: <input type="text" name="imagen_pj"
+                /></label>
+
+                <label>Raza: <input type="text" name="raza" /></label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Alias</legend>
+                <div id="aliasContainer">
+                  <div class="aliasGroup">
+                    <label
+                      >Alias (ES): <input type="text" name="alias_es[]"
+                    /></label>
+
+                    <label
+                      >Alias (JP): <input type="text" name="alias_jp[]"
+                    /></label>
+                  </div>
+                </div>
+                <button type="button" onclick="agregarAlias()">+ Alias</button>
+              </fieldset>
+
+              <fieldset>
+                <legend>Afiliaciones</legend>
+                <div id="afiliacionContainer">
+                  <div class="afiliacionGroup">
+                    <label
+                      >Afiliación (ES):
+                      <input type="text" name="afiliacion_es[]"
+                    /></label>
+
+                    <label
+                      >Afiliación (JP):
+                      <input type="text" name="afiliacion_jp[]"
+                    /></label>
+
+                    <label
+                      >Rol:
+                      <select name="rol_afiliacion[]" id="">
+                        <option value="" selected disabled>
+                          Seleccione un rol
+                        </option>
+                        <option value="miembro">Miembro</option>
+                        <option value="lider">Lider</option>
+                      </select></label
+                    >
+                  </div>
+                </div>
+                <button type="button" onclick="agregarAfiliacion()">
+                  + Afiliación
+                </button>
+              </fieldset>
+
+              <fieldset>
+                <legend>Ocupación</legend>
+                <div id="ocupacionContainer">
+                  <div id="ocupacionGrupo">
+                    <label
+                      >Nombre ocupación:
+                      <input type="text" name="nombre_ocupacion[]"
+                    /></label>
+                    <label
+                      >Estado ocupación:
+                      <select name="estado_ocupacion[]" id="ocupacion">
+                        <option value="" selected disabled>
+                          Seleccione un estado
+                        </option>
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                      </select></label
+                    >
+                  </div>
+                </div>
+                <button type="button" onclick="agregarOcupacion()">
+                  + ocupacion
+                </button>
+              </fieldset>
+
+              <fieldset>
+                <legend>Tipo de Nen</legend>
+                <div id="nenContainer">
+                  <div id="nenGrupo">
+                    <label
+                      >Tipo de Nen: <input type="text" name="tipo_nen[]"
+                    /></label>
+                  </div>
+                </div>
+                <button type="button" onclick="agregarNen()">+ nen</button>
+              </fieldset>
+
+              <fieldset>
+                <legend>Habilidades</legend>
+                <div id="habilidadContainer">
+                  <div id="habilidadGrupo">
+                    <label
+                      >Nombre habilidad: <input type="text" name="habilidad[]"
+                    /></label>
+                  </div>
+                </div>
+                <button type="button" onclick="agregarHabilidad()">
+                  + Habilidad
+                </button>
+              </fieldset>
+
+              <fieldset>
+                <legend>Relaciones</legend>
+                <div id="relacionesContainer">
+                  <div id="relacionesGrupo">
+                    <label
+                      >ID del otro personaje:
+                      <input type="text" name="relacion_pj[]"
+                    /></label>
+                    <label
+                      >Tipo de relación:
+                      <input type="text" name="tipo_relacion[]"
+                    /></label>
+                  </div>
+                </div>
+                <button type="button" onclick="agregarRelacion()">
+                  + Relacion
+                </button>
+              </fieldset>
+
+              <button type="submit">Guardar Personaje</button>
+            </form>
+          </div>
+
+          <!-- Contendor del ingresador de contraseña -->
+          <div class="divDesplegable">
+            <h1 class="tituloContraseña">
+              Ingrese una de las contraseñas para ingresar a la pagina admin
+            </h1>
+            <div class="cuerpoContraseña">
+              <input id="claveInput" type="password" placeholder="Contraseña" />
+              <button id="botonClave">Siguiente</button>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <script src="paginaProfesional.js"></script>
+    </main>
+  </body>
 </html>
